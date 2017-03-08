@@ -18,6 +18,7 @@ class App extends Component {
       euros: 0,
       dollars: 0,
       doRound: false,
+      bgColor: 0,
     }
   }
 
@@ -30,6 +31,7 @@ updateEuros = (newValue) =>{
     euros: eurs,
     dollars: dlrs,
     doRound: this.state.doRound,
+    bgColor: this.state.bgColor,
   });
 }
 
@@ -40,6 +42,7 @@ updateDollars = (event, newValue)=>{
     euros: eurs,
     dollars: dlrs,
     doRound: this.state.doRound,
+    bgColor: this.state.bgColor,
   });
 }
 
@@ -48,6 +51,7 @@ adjustRounding=(event,isChecked) =>{
     euros: this.state.euros,
     dollars: this.state.dollars,
     doRound: isChecked,
+    bgColor: this.state.bgColor,
   });
 }
 
@@ -56,14 +60,28 @@ clear=(event,isChecked) =>{
     euros: 0,
     dollars: 0,
     doRound: this.state.round,
+    bgColor: this.state.bgColor,
   });
 }
 
+mouseMove = (event) =>{
+  const nc = Math.min(255,(255*event.clientY / event.clientX))&0xff;
+  this.setState({
+    euros: this.state.euros,
+    dollars: this.state.dollars,
+    doRound: this.state.doRound,
+    bgColor: nc,
+  });
+}
 
   render() {
+
+    const c = this.state.bgColor;
+    const bgcol = "#"+(c*256*256+c*256+255).toString(16);
+
     return (
       <MuiThemeProvider>
-        <Paper style={{width: 600}}>
+        <Paper style={{width: 600, background: bgcol}} onMouseMove={this.mouseMove}>
           <div>
           Euros: <TextField value={this.state.euros} onChange={(e, v)=> {this.updateEuros(v)}} id="euros"/>
           </div> <div>
