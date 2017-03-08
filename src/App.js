@@ -37,7 +37,8 @@ updateEuros = (newValue) =>{
 
 updateDollars = (event, newValue)=>{
   const dlrs = parseFloat(newValue);
-  const eurs = dlrs/RATE;
+  // const eurs = dlrs/RATE;
+  const eurs = this.state.doRound?Math.round(dlrs/RATE):dlrs/RATE;
   this.setState({
     euros: eurs,
     dollars: dlrs,
@@ -67,9 +68,9 @@ clear=(event,isChecked) =>{
 mouseMove = (event) =>{
   const nc = Math.min(255,(255*event.clientY / event.clientX))&0xff;
   this.setState({
-    euros: this.state.euros,
-    dollars: this.state.dollars,
-    doRound: this.state.doRound,
+    // euros: this.state.euros,
+    // dollars: this.state.dollars,
+    // doRound: this.state.doRound,
     bgColor: nc,
   });
 }
